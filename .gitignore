@@ -1,0 +1,7 @@
+.bem/cache/
+node_modules/
+bem-bl
+build/*/*.*
+!build/*/*.bemjson.js
+!build/*/*.html
+!level.js
