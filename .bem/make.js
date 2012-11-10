@@ -4,17 +4,17 @@ MAKE.decl('Arch', {
 
     bundlesLevelsRegexp: /^build$/,
 
-    getLibraries: function() {
+    //getLibraries: function() {
 
-        return {
-            'bem-bl': {
-                type: 'git',
-                url: 'git://github.com/bem/bem-bl.git',
-                treeish: '0.3'
-            }
-        };
+        //return {
+            //'bem-bl': {
+                //type: 'git',
+                //url: 'git://github.com/bem/bem-bl.git',
+                //treeish: '0.3'
+            //}
+        //};
 
-    }
+    //}
 
 });
 
