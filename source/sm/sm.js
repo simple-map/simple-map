@@ -1,1 +1,1 @@
-alert('hello, sm!');
+var sm = window.sm = {};
