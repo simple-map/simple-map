@@ -1,6 +1,6 @@
 ({
     mustDeps: [
-        {block: 'core'},
+        {block: 'plugin'},
         {block: '_util', elem: 'extend'}
     ]
 })

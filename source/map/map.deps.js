@@ -1,6 +1,6 @@
 ({
     mustDeps: [
-        {block: 'core'}
+        {block: 'plugin'}
     ],
     shouldDeps: [
         {block: '_model'},
