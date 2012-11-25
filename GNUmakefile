@@ -1,12 +1,12 @@
 .DEFAULT_GOAL := all
 BEM := ./node_modules/.bin/bem
 
-ifneq (,$(findstring B,$(MAKEFLAGS)))
-BEM_FLAGS := --force
-endif
+all:
+	npm install
+	$(BEM) server
 
-%::
-	$(if $(findstring GNUmakefile,$@),,$(BEM) make $@ $(BEM_FLAGS))
+rebuild:
+	$(BEM) make
 
 .PHONY: clean
 clean::
