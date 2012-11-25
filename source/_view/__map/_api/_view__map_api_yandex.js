@@ -15,8 +15,10 @@ sm.plugin('_view.map.Yandex', function (sandbox) {
                 ymaps.ready(onCallback);
             });
         } else {
-            onCallback();
+            setTimeout(onCallback, 0);
         }
+
+        // TODO: show loader until api will be loaded
         sandbox.dom.ready(onCallback);
 
         function onCallback() {
@@ -38,6 +40,13 @@ sm.plugin('_view.map.Yandex', function (sandbox) {
                 zoom: options.zoom
             });
             this._setListeners();
+        },
+
+        destroy: function () {
+            //this._events.removeAll() TODO: add method removeAll for eventManager
+            if (this._map) {
+                this._map.destroy();
+            }
         },
 
         // TODO:

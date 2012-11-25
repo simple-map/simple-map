@@ -18,6 +18,13 @@ sm.plugin('Map', function (sandbox) {
         },
 
         _onViewReady: function () {
+            this._initView();
+            this._model
+                .on('center', this._onCenterChanged, this)
+                .on('api', this._onApiChanged, this);
+        },
+
+        _initView: function () {
             //TODO: check center before setting it to map (cause error in ymaps api)
             this._view.initialize({
                 container: this._model.get('container'),
@@ -25,28 +32,30 @@ sm.plugin('Map', function (sandbox) {
                 zoom: this._model.get('zoom')
             });
 
-            this._model.on('center', this._onCenterChanged, this);
-
             this._view.on('click', function (data) {
                 this._events.fire('click', data);
             }, this);
 
             this._view.on('boundschange', function (data) {
-                var newCenter = data.center.new;
-                var oldCenter = this._model.get('center');
-
                 if (!this._freeze) {
-                    this._model.set('center', data.center.new);
+                    this._model.set('center', data.center.new); //TODO: add silent option to model
                 }
             }, this);
         },
 
         _onCenterChanged: function () {
             //TODO: the model should pass a new center into the callback
-            this._freeze = true; //TODO: add silent option to model
+            this._freeze = true;
             this._view.setCenter(this._model.get('center'));
             this._events.fire('center-change', this._model.get('center'));
             this._freeze = false;
+        },
+
+        _onApiChanged: function () {
+            this._factory = new sandbox.view.Factory(this._model.get('api'));
+            this._view.destroy(); //TODO: hide
+            this._view =  this._factory.createMapView();
+            this._view.on('ready', this._initView, this);
         },
 
         on: function () {

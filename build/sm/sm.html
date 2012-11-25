@@ -17,6 +17,10 @@
             map.on('center-change', function (data) {
                 console.log('new center = ', map.prop('center'));
             });
+
+            setTimeout(function () {
+                map.prop('api', 'console');
+            }, 2000);
         </script>
     </head>
 <body>
