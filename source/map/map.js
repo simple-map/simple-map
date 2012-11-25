@@ -1,50 +1,88 @@
 sm.plugin('Map', function (sandbox) {
 
-    var DEFAULT_OPTIONS = {
-        api: 'yandex'
-    };
-
     function Map(options) {
-        options = sandbox.util.extend(DEFAULT_OPTIONS, options);
-
+        this._factory = new sandbox.view.Factory(options.api);
         this._model = new sandbox.Model(options);
+        this._view =  this._factory.createMapView(),
         this._events = new sandbox.util.EventManager();
+
+        this._view.on('ready', this._onViewReady, this);
     }
 
-    Map.prototype.remove = function () {
-        this._view.destroy();
-        this._model.destroy();
-        this._events = this._view = this._model = null;
-    };
+    sandbox.util.extend(Map.prototype, {
 
-    Map.prototype.on = function (eventName, callback, ctx) {
-        this._events.on(eventName, callback, ctx);
-        return this;
-    }
+        remove: function () {
+            this._view.destroy();
+            this._model.destroy();
+            this._view = this._model = null;
+        },
 
-    Map.prototype.un = function (eventName, callback, ctx) {
-        this._events.un(eventName, callback, ctx);
-        return this;
-    }
+        _onViewReady: function () {
+            //TODO: check center before setting it to map (cause error in ymaps api)
+            this._view.initialize({
+                container: this._model.get('container'),
+                center: this._model.get('center'),
+                zoom: this._model.get('zoom')
+            });
 
-    Map.prototype.prop = function (key, value) {
-        if (value === undefined) {
-            return this._model.get(key);
-        } else {
-            this._model.set(key, value);
+            this._model.on('center', this._onCenterChanged, this);
+
+            this._view.on('click', function (data) {
+                this._events.fire('click', data);
+            }, this);
+
+            this._view.on('boundschange', function (data) {
+                var newCenter = data.center.new;
+                var oldCenter = this._model.get('center');
+
+                if (!this._freeze) {
+                    this._model.set('center', data.center.new);
+                }
+            }, this);
+        },
+
+        _onCenterChanged: function () {
+            //TODO: the model should pass a new center into the callback
+            this._freeze = true; //TODO: add silent option to model
+            this._view.setCenter(this._model.get('center'));
+            this._events.fire('center-change', this._model.get('center'));
+            this._freeze = false;
+        },
+
+        on: function () {
+            this._events.on.apply(this._events, arguments);
             return this;
+        },
+
+        un: function () {
+            this._events.un.apply(this._events, arguments);
+            return this;
+        },
+
+        prop: function (key, value) {
+            if (value === undefined) {
+                return this._model.get(key);
+            } else {
+                this._model.set(key, value);
+                return this;
+            }
+        },
+
+        show: function () {
+            this._model.set('visibility', true);
+            return this;
+        },
+
+        hide: function () {
+            this._model.set('visibility', false);
+            return this;
+        },
+
+        original: function () {
+            return this._view.original();
         }
-    };
 
-    Map.prototype.show = function () {
-        this._model.set('visibility', true);
-        return this;
-    };
-
-    Map.prototype.hide = function () {
-        this._model.set('visibility', false);
-        return this;
-    };
+    });
 
     return function (options) {
         return new Map(options);

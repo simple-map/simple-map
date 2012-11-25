@@ -5,16 +5,22 @@
         <script src="_sm.js"></script>
         <script>
             var map = sm.Map({
-                center: 'Льва толстого 16'
+                container: 'maps',
+                center: [55.755773, 37.617761],
+                zoom: 10
             });
-            console.log(map.prop('center'));
 
             map.on('click', function (data) {
-                console.log('click');
+                map.prop('center', data.coords);
+            });
+
+            map.on('center-change', function (data) {
+                console.log('new center = ', map.prop('center'));
             });
         </script>
     </head>
 <body>
+    <div id="maps" style="width:300px;height:300px;"></div>
 </body>
 
 </html>
