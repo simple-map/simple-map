@@ -1,5 +1,5 @@
 .bem/cache/
-node_modules/
+tools/node_modules/
 bem-bl
 build/*/*.*
 !build/*/*.bemjson.js

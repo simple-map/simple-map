@@ -1,8 +1,8 @@
 .DEFAULT_GOAL := all
-BEM := ./node_modules/.bin/bem
+BEM := ./tools/node_modules/.bin/bem
 
 all:
-	npm install
+	cd tools; npm install; cd -
 	$(BEM) server
 
 rebuild:
