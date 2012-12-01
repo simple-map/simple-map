@@ -82,12 +82,11 @@ sm.plugin('_util.EventManager', function (sandbox) {
          * @returns {this}
          */
         fire: function (eventName, eventData) {
-            var eventCallbacks = this[callbacksStorageName][eventName],
-                eventObject = sandbox.util.extend({type: eventName}, eventData || {});
+            var eventCallbacks = this[callbacksStorageName][eventName];
 
             if (eventCallbacks) {
                 eventCallbacks.forEach(function (callback) {
-                    callback.fn.call(callback.ctx || eventObject, eventObject);
+                    callback.fn.call(callback.ctx || window, eventData);
                 });
             }
 
