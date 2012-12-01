@@ -5,4 +5,4 @@
         {block: '_util', elems: ['compare', 'event-manager', 'extend']},
         {block: '_dom', elems: ['ready', 'getScript']}
     ]
-})
+});

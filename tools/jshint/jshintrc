@@ -1,0 +1,35 @@
+{
+    // Settings
+    "passfail"      : true,   // Stop on first error.
+    "maxerr"        : 1,      // Maximum error before stopping.
+    "browser"       : true,   // Standard browser globals e.g. `window`, `document`.
+
+    "predef"        : [
+        "sm",
+        "ymaps"
+    ],
+
+    "debug"         : false,  // Allow debugger statements e.g. browser breakpoints.
+    "devel"         : false,  // Allow developments statements e.g. `console.log();`.
+    "strict"        : false,  // Require `use strict` pragma  in every file.
+    "globalstrict"  : true,   // Allow global "use strict" (also enables 'strict').
+
+    "boss"          : false,  // Tolerate assignments inside if, for & while. Usually conditions & loops are for comparison, not assignments.
+    "curly"         : true,   // Require {} for every new block or scope.
+    "eqeqeq"        : true,   // Require triple equals i.e. `===`.
+    "eqnull"        : true,   // Tolerate use of `== null`.
+    "expr"          : true,   // Tolerate `ExpressionStatement` as Programs.
+    "immed"         : true,   // Require immediate invocations to be wrapped in parens e.g. `( function(){}() );`
+    "latedef"       : true,   // Prohipit variable use before definition.
+    "loopfunc"      : true ,  // Allow functions to be defined within loops.
+    "noarg"         : true,   // Prohibit use of `arguments.caller` and `arguments.callee`.
+    "undef"         : true,   // Require all non-global variables be declared before they are used.
+
+    "newcap"        : true,   // Require capitalization of all constructor functions e.g. `new F()`.
+    "nonew"         : true,   // Prohibit use of constructors for side-effects.
+    "plusplus"      : false,  // Prohibit use of `++` & `--`.
+    "sub"           : true,   // Tolerate all forms of subscript notation besides dot notation e.g. `dict['key']` instead of `dict.key`.
+    "trailing"      : true,   // Prohibit trailing whitespaces.
+    "white"         : true,   // Check against strict whitespace and indentation rules.
+    "indent"        : 4       // Specify indentation spacing
+}

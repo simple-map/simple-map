@@ -1,12 +1,12 @@
-sm.plugin('_util.compare', function (sandbox) {
+sm.plugin('_util.compare', function () {
 
     var toString = Object.prototype.toString;
 
-    function isObject (obj) {
+    function isObject(obj) {
         return toString.apply(obj) === '[object Object]';
     }
 
-    function compareObjects (a, b) {
+    function compareObjects(a, b) {
         // Compare if they are references to each other
         if (a === b) {
             return true;
@@ -20,9 +20,9 @@ sm.plugin('_util.compare', function (sandbox) {
             if (
                 a.hasOwnProperty(i) && (
                     typeof b[i] === 'undefined' ||
-                    toString.apply(objA[i]) !== toString.apply(objB[i])
+                    toString.apply(a[i]) !== toString.apply(b[i])
                 ) ||
-                !compare(objA[i],objB[i])
+                !compare(a[i], b[i])
             ) {
                 return false;
             }
@@ -30,7 +30,7 @@ sm.plugin('_util.compare', function (sandbox) {
         return true;
     }
 
-    function isArray (arr) {
+    function isArray(arr) {
         return toString.apply(arr) === '[object Array]';
     }
 
@@ -45,12 +45,12 @@ sm.plugin('_util.compare', function (sandbox) {
             return false;
         }
 
-        for (var i = 0, l = a.length; i < l; i+=1) {
+        for (var i = 0, l = a.length; i < l; i++) {
             if (toString.apply(a[i]) !== toString.apply(b[i])) {
                 return false;
             }
 
-            if (!compare(a[i],b[i])) {
+            if (!compare(a[i], b[i])) {
                 return false;
             }
         }
@@ -63,21 +63,21 @@ sm.plugin('_util.compare', function (sandbox) {
     }
 
     function compareFloats(a, b) {
-        return a.toFixed(6) ==  b.toFixed(6);
+        return a.toFixed(6) ===  b.toFixed(6);
     }
 
-    function compare (a, b) {
+    function compare(a, b) {
         switch (Boolean(true)) {
-            case toString.apply(a) !== toString.apply(b):
-                return false;
-            case isObject(a):
-                return compareObjects(a, b);
-            case isArray(a):
-                return compareArrays(a, b);
-            case isFloat(a):
-                return compareFloats(a, b);
-            default:
-                return a === b;
+        case toString.apply(a) !== toString.apply(b):
+            return false;
+        case isObject(a):
+            return compareObjects(a, b);
+        case isArray(a):
+            return compareArrays(a, b);
+        case isFloat(a):
+            return compareFloats(a, b);
+        default:
+            return a === b;
         }
     }
 

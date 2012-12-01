@@ -8,7 +8,6 @@ sm.plugin('_util.inherit', function (sandbox) {
      * @param {Object} methods Additional methods for descendant class.
      * @returns {Function} Descendant class.
      */
-    var F = function () {};
     function inherit(descendant, parent, methods) {
         descendant.prototype = Object.create(parent.prototype);
         descendant.prototype.constructor = descendant;

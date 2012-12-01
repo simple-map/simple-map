@@ -5,4 +5,4 @@
             {elem: 'map', mods: {api: 'yandex'}}
         ]}
     ]
-})
+});

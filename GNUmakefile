@@ -1,13 +1,28 @@
-.DEFAULT_GOAL := all
-BEM := ./tools/node_modules/.bin/bem
+BEM := ./tools/node_modules/bem/bin/bem
 
-all:
+JSHINT := ./tools/node_modules/jshint/bin/hint
+JSLINT_DIRS = source
+
+all: config deps server
+
+deps:
 	cd tools; npm install; cd -
+
+server:
 	$(BEM) server
 
 rebuild:
 	$(BEM) make
 
-.PHONY: clean
-clean::
+jshint:
+	@$(JSHINT) source --config tools/jshint/jshintrc --reporter tools/jshint/reporter.js
+
+config:
+	@if [ -d .git ]; then \
+		for hook in pre-commit ; do \
+			ln -sf ./../../tools/git/hooks/$$hook .git/hooks/$$hook; \
+		done \
+	fi
+
+clean:
 	$(BEM) make -m clean

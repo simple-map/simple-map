@@ -5,6 +5,13 @@ sm.plugin('_view.map.Yandex', function (sandbox) {
     function prepareAPI(callback) {
         var asyncCount = 2;
 
+        function onCallback() {
+            asyncCount--;
+            if (!asyncCount) {
+                callback();
+            }
+        }
+
         if (!window.ymaps) {
             sandbox.dom.getScript(API_URL, function () {
                 ymaps.ready(onCallback);
@@ -15,13 +22,6 @@ sm.plugin('_view.map.Yandex', function (sandbox) {
 
         // TODO: show loader until api will be loaded
         sandbox.dom.ready(onCallback);
-
-        function onCallback() {
-            asyncCount--;
-            if (!asyncCount) {
-                callback();
-            }
-        }
     }
 
     function View(model) {
@@ -89,11 +89,11 @@ sm.plugin('_view.map.Yandex', function (sandbox) {
         },
 
         _onClick: function (e) {
-            this._events.fire('click', e.get('coordPosition'))
+            this._events.fire('click', e.get('coordPosition'));
         },
 
         _onDblClick: function (e) {
-            this._events.fire('dblclick', e.get('coordPosition'))
+            this._events.fire('dblclick', e.get('coordPosition'));
         },
 
         _onMouseOver: function (e) {

@@ -1,21 +1,22 @@
 {
   "author": "",
-  "name": "bem-bl-test",
-  "version": "0.0.0",
+  "name": "sm",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bem/bem-bl-test.git"
+    "url": "git://github.com/simple-map/simple-map.git"
   },
   "engines": {
     "node": "0.6 | 0.7 | 0.8 | 0.9"
   },
-  "dependencies": {
-    "bem": "~0.5.19",
+  "dependencies": {},
+  "devDependencies": {
+    "bem": "0.5.19",
     "ometajs": "~2.1.10",
     "xjst": "0.2.21",
-    "dom-js": "*"
+    "dom-js": "*",
+    "jshint": "*"
   },
-  "devDependencies": {},
   "optionalDependencies": {},
   "private": true
 }
