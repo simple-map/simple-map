@@ -21,4 +21,10 @@ if [ -d $DIR ]; then
     rm -rf $DIR
 fi
 
+# Run tests for changed js files using phantomjs
+TEST_DIRS=$(echo "$GIT_CACHED_FILES" | awk '/.js$/{gsub("/[^/]+.js",""); s=s " " $0} END {print s}')
+if [ "$TEST_DIRS" ]; then
+    make test TEST_DIRS="$TEST_DIRS" || exit 1
+fi
+
 exit

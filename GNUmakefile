@@ -3,10 +3,27 @@ BEM := ./tools/node_modules/bem/bin/bem
 JSHINT := ./tools/node_modules/jshint/bin/hint
 JSLINT_DIRS = source
 
-all: config deps server
+TEST_DIRS := source
+PHANTOMJS := ./tools/node_modules/phantomjs/bin/phantomjs
 
-deps:
+JASMINE_VERSION = 1.3.0
+JASMINE_ARCHIEVE = jasmine-standalone-$(JASMINE_VERSION).zip
+JASMINE_ARCHIVE_URL = https://github.com/downloads/pivotal/jasmine/$(JASMINE_ARCHIEVE)
+JASMINE_DIR = tests/jasmine
+
+all: config node_modules jasmine server
+
+node_modules:
 	cd tools; npm install; cd -
+
+jasmine:
+	@if [ ! -d "$(JASMINE_DIR)" ]; then \
+		wget $(JASMINE_ARCHIVE_URL); \
+		unzip -o $(JASMINE_ARCHIEVE) -d tmp; \
+		mv tmp/lib/jasmine-$(JASMINE_VERSION) $(JASMINE_DIR); \
+		rm -rf tmp $(JASMINE_ARCHIEVE); \
+		cp ./tools/jasmine/*.* $(JASMINE_DIR); \
+	fi
 
 server:
 	$(BEM) server
@@ -16,6 +33,13 @@ rebuild:
 
 jshint:
 	@$(JSHINT) source --config tools/jshint/jshintrc --reporter tools/jshint/reporter.js
+
+test:
+	@if [ "$(shell ls -1R ${TEST_DIRS} | grep --color=none '\.test\.js')" ]; then \
+		$(BEM) create block -T ./tests/.bem/techs/bemdecl.test.js "$(TEST_DIRS)"; \
+		$(BEM) make tests; \
+		$(PHANTOMJS) ./tools/phantom/phantom.js ./tests/index/index.html; \
+	fi
 
 config:
 	@if [ -d .git ]; then \

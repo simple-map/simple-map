@@ -5,3 +5,7 @@ build/*/*.*
 !build/*/*.bemjson.js
 !build/*/*.html
 !level.js
+tests/jasmine
+tests/*/*.*
+!tests/*/*.bemjson.js
+!tests/*/*.html

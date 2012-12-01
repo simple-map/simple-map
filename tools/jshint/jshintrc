@@ -6,7 +6,18 @@
 
     "predef"        : [
         "sm",
-        "ymaps"
+        "ymaps",
+        "exports",
+        "jasmine",
+        "spyOn",
+        "it",
+        "describe",
+        "expect",
+        "afterEach",
+        "beforeEach",
+        "waits",
+        "waitsFor",
+        "runs"
     ],
 
     "debug"         : false,  // Allow debugger statements e.g. browser breakpoints.
