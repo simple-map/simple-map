@@ -1,6 +1,6 @@
 ({
     mustDeps: [
         {block: 'plugin'},
-        {block: '_util', elems: ['extend']}
+        {block: '_util', elems: ['compare', 'event-manager', 'extend', 'inherit']}
     ]
 })
