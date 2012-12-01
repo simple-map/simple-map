@@ -10,17 +10,17 @@
                 zoom: 10
             });
 
-            map.on('click', function (data) {
-                map.prop('center', data.coords);
+            map.on('click', function (coords) {
+                map.prop('center', coords);
             });
 
-            map.on('center-change', function (data) {
+            map.on('dblclick', function (data) {
+                console.log('dblclick');
+            });
+
+            map.on('center_changed', function () {
                 console.log('new center = ', map.prop('center'));
             });
-
-            setTimeout(function () {
-                map.prop('api', 'console');
-            }, 2000);
         </script>
     </head>
 <body>

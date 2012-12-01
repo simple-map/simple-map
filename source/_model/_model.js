@@ -22,7 +22,7 @@ sm.plugin('_Model', function (sandbox, undefined) {
 
     sandbox.util.inherit(Model, sandbox.util.EventManager, {
 
-        set: function (key, newValue) {
+        set: function (key, newValue, silent) {
             var field, lastPart, oldValue, parts, path, values;
 
             if (typeof key === 'string') {
@@ -39,7 +39,9 @@ sm.plugin('_Model', function (sandbox, undefined) {
                     lastPart = parts[parts.length - 1];
                     oldValue = field[lastPart];
                     field[lastPart] = values[path];
-                    this._notify(parts, field, oldValue, values[path]);
+                    if (!silent) {
+                        this._notify(parts, field, oldValue, values[path]);
+                    }
                 }
             }
         },
