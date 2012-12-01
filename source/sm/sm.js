@@ -1,1 +1,3 @@
-var sm = window.sm = {};
+var sm = window.sm = function () {
+    return sm.Map.apply(this, arguments);
+}
