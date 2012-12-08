@@ -1,2 +1,3 @@
-source/_dom/__getScript/_dom__getScript.js
-source/_dom/__ready/_dom__ready.js
+source/dom/__getScript/dom__getScript.js
+source/dom/__ready/dom__ready.js
+source/sm/sm.js

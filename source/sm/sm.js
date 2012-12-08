@@ -1,3 +1,2 @@
-var sm = window.sm = function () {
-    return sm.Map.apply(this, arguments);
-};
+//TODO: use exported directive from https://github.com/jshint/jshint/pull/726
+var sm = window.sm = {};

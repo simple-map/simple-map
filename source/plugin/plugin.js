@@ -17,26 +17,28 @@
     /**
      * Plugin system.
      * Add some functionality to sm namespace or to internal sandbox.
-     * Prefix '_' of plugin name means that plugin internal and should be placed to sandbox.
      *
      * @param {String} name Plugin name
      * @param {Function} callback Plugin body
      * @returns {SM} sm
      */
-    sm.plugin = function (name, callback) {
-        var isInternal = name[0] === '_';
-        name = isInternal ? name.substr(1): name;
-        var parts = name.split('.');
+    sm.plugin = function (name, callback, namespace) {
+        namespace = namespace || sandbox;
+        if (typeof name === 'function') {
+            name.call(namespace, sandbox);
+            return;
+        }
 
+        var parts = name.split('.');
         var plugin = {};
         var temp = plugin;
         while (parts.length) {
             var key = parts.shift();
-            temp[key] = !parts.length ? callback.call(sm, sandbox): {};
+            temp[key] = !parts.length ? callback.call(namespace, sandbox): {};
             temp = temp[key];
         }
 
-        deepExtend(!isInternal ? sm: sandbox, plugin);
+        deepExtend(namespace, plugin);
 
         return sm;
     };
