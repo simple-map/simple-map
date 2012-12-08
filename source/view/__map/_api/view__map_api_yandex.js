@@ -1,4 +1,4 @@
-sm.plugin('view.map.Yandex', function (sandbox) {
+sm.plugin('view.map.Yandex', function ($) {
 
     var API_URL = 'http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU';
 
@@ -13,7 +13,7 @@ sm.plugin('view.map.Yandex', function (sandbox) {
         }
 
         if (!window.ymaps) {
-            sandbox.dom.getScript(API_URL, function () {
+            $.dom.getScript(API_URL, function () {
                 ymaps.ready(onCallback);
             });
         } else {
@@ -21,7 +21,7 @@ sm.plugin('view.map.Yandex', function (sandbox) {
         }
 
         // TODO: show loader until api will be loaded
-        sandbox.dom.ready(onCallback);
+        $.dom.ready(onCallback);
     }
 
     function View(model) {
@@ -34,7 +34,7 @@ sm.plugin('view.map.Yandex', function (sandbox) {
         });
     }
 
-    sandbox.util.extend(View.prototype, sandbox.behaviour.Observable, {
+    $.util.extend(View.prototype, $.behaviour.Observable, {
         _initialize: function () {
             var containerID = this._model.get('container');
             // TODO: debug error for container with null size

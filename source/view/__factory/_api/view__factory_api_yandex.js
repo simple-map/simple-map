@@ -1,8 +1,8 @@
-sm.plugin('view.factories.yandex', function (sandbox, undefined) {
+sm.plugin('view.factories.yandex', function ($) {
 
     return {
         createMapView: function (model) {
-            return new sandbox.view.map.Yandex(model);
+            return new $.view.map.Yandex(model);
         }
     };
 

@@ -1,12 +1,12 @@
-sm.plugin('view.Factory', function (sandbox, undefined) {
+sm.plugin('view.Factory', function ($, undefined) {
 
     var DEFAULT_API = 'yandex';
 
     function Factory(api) {
         api = api || DEFAULT_API;
-        var factory = sandbox.view.factories[api];
+        var factory = $.view.factories[api];
 
-        return factory ? factory: sandbox.view.factories[DEFAULT_API];
+        return factory ? factory: $.view.factories[DEFAULT_API];
     }
 
     return Factory;

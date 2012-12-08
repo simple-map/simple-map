@@ -1,15 +1,15 @@
-sm.plugin('Map', function (sandbox) {
+sm.plugin('Map', function ($) {
 
     function Map(options) {
-        this._factory = new sandbox.view.Factory(options.api);
+        this._factory = new $.view.Factory(options.api);
 
-        this._model = new sandbox.Model(options);
+        this._model = new $.Model(options);
         this._view =  this._factory.createMapView(this._model),
 
         this._onViewReady();
     }
 
-    sandbox.util.extend(Map.prototype, sandbox.behaviour.Observable, {
+    $.util.extend(Map.prototype, $.behaviour.Observable, {
 
         remove: function () {
             this._view.destroy();

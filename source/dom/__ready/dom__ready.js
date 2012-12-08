@@ -1,7 +1,7 @@
 /**
  * @see https://gist.github.com/1476064
  */
-sm.plugin('dom.ready', function (sandbox) {
+sm.plugin('dom.ready', function () {
 
     'use strict';
 

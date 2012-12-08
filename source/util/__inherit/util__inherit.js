@@ -1,4 +1,4 @@
-sm.plugin('util.inherit', function (sandbox) {
+sm.plugin('util.inherit', function ($) {
 
     /**
      * Classic OOP inheritance implementation.
@@ -14,7 +14,7 @@ sm.plugin('util.inherit', function (sandbox) {
         descendant.superclass = parent.prototype;
 
         if (methods) {
-            sandbox.util.extend(descendant.prototype, methods);
+            $.util.extend(descendant.prototype, methods);
         }
 
         return descendant;
