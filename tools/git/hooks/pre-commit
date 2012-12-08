@@ -9,16 +9,16 @@ git diff --cached | grep ^+ | grep -v pre-commit | grep FIXME --color &&
 GIT_CACHED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
 
 # Check changed js files using jslint
-DIR=JSLINT_DIR
-echo "$GIT_CACHED_FILES" | grep -e '\.js$' --color=none | xargs git checkout-index -f --prefix=$DIR/
+TMP_DIR=$(mktemp -d jshint.XXX)
+echo "$GIT_CACHED_FILES" | grep -e '\.js$' --color=none | xargs git checkout-index -f --prefix=$TMP_DIR/
 if [ -d $DIR ]; then
-    make -C ./$(git rev-parse --show-cdup) jshint JSLINT_DIRS=$DIR > $DIR/error.log
+    make -C ./$(git rev-parse --show-cdup) jshint JSHINT_DIRS=$TMP_DIR > $TMP_DIR/error.log
     if [ $? -ne 0 ]; then
-        sed 's/JSLINT_DIR\///g;s/\n/\r/g' $DIR/error.log
-        rm -rf $DIR
+        sed "s/$TMP_DIR\///g;s/\n/\r/g" $TMP_DIR/error.log
+        rm -rf $TMP_DIR
         exit 1
     fi
-    rm -rf $DIR
+    rm -rf $TMP_DIR
 fi
 
 # Run tests for changed js files using phantomjs

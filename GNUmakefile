@@ -1,7 +1,7 @@
 BEM := ./tools/node_modules/bem/bin/bem
 
 JSHINT := ./tools/node_modules/jshint/bin/hint
-JSLINT_DIRS = source
+JSHINT_DIRS = source
 
 TEST_DIRS := source
 PHANTOMJS := ./tools/node_modules/phantomjs/bin/phantomjs
@@ -32,7 +32,7 @@ rebuild:
 	$(BEM) make
 
 jshint:
-	@$(JSHINT) source --config tools/jshint/jshintrc --reporter tools/jshint/reporter.js
+	@$(JSHINT) --config tools/jshint/jshintrc --reporter tools/jshint/reporter.js $(JSHINT_DIRS)
 
 test:
 	@if [ "$(shell ls -1R ${TEST_DIRS} | grep --color=none '\.test\.js')" ]; then \
