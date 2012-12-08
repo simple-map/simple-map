@@ -3,7 +3,7 @@
         {block: 'behaviour', elem: 'observable'},
         {block: 'plugin'},
         {block: 'model'},
-        {block: 'util', elems: ['extend', 'mixin']},
+        {block: 'util', elem: 'extend'},
         {block: 'view', elems: ['factory']}
     ]
 });
