@@ -1,9 +1,8 @@
-sm.plugin('util.EventManager', function (sandbox) {
+sm.plugin('behaviour.Observable', function () {
 
     var callbacksStorageName = '__' + Number(new Date()) + 'storage';
-    var EventManager = function () {};
 
-    sandbox.util.extend(EventManager.prototype, {
+    return {
 
         /**
          * Start listening some particular event.
@@ -87,8 +86,6 @@ sm.plugin('util.EventManager', function (sandbox) {
 
             return this;
         }
-    });
-
-    return EventManager;
+    };
 
 });

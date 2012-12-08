@@ -26,7 +26,6 @@ sm.plugin('view.map.Yandex', function (sandbox) {
 
     function View(model) {
         this._model = model;
-        this._events = new sandbox.util.EventManager();
         /// this._map = null;
 
         var _this = this;
@@ -35,7 +34,7 @@ sm.plugin('view.map.Yandex', function (sandbox) {
         });
     }
 
-    sandbox.util.extend(View.prototype, {
+    sandbox.util.extend(View.prototype, sandbox.behaviour.Observable, {
         _initialize: function () {
             var containerID = this._model.get('container');
             // TODO: debug error for container with null size
@@ -83,47 +82,37 @@ sm.plugin('view.map.Yandex', function (sandbox) {
         _onBoundsChange: function (e) {
             this._model.set('center', e.get('newCenter'), true);
             this._model.set('zoom', e.get('newZoom'), true);
-            this._events.fire('bounds_changed');
-            this._events.fire('center_changed');
-            this._events.fire('zoom_changed');
+            this.fire('bounds_changed');
+            this.fire('center_changed');
+            this.fire('zoom_changed');
         },
 
         _onClick: function (e) {
-            this._events.fire('click', e.get('coordPosition'));
+            this.fire('click', e.get('coordPosition'));
         },
 
         _onDblClick: function (e) {
-            this._events.fire('dblclick', e.get('coordPosition'));
+            this.fire('dblclick', e.get('coordPosition'));
         },
 
         _onMouseOver: function (e) {
-            this._events.fire('mouseover', e.get('coordPosition'));
+            this.fire('mouseover', e.get('coordPosition'));
         },
 
         _onMouseMove: function (e) {
-            this._events.fire('mousemove', e.get('coordPosition'));
+            this.fire('mousemove', e.get('coordPosition'));
         },
 
         _onMouseOut: function (e) {
-            this._events.fire('mouseout', e.get('coordPosition'));
+            this.fire('mouseout', e.get('coordPosition'));
         },
 
         _onRightClick: function (e) {
-            this._events.fire('rightclick', e.get('coordPosition'));
+            this.fire('rightclick', e.get('coordPosition'));
         },
 
         _onTypeChange: function (e) {
             this._model.set('type', e.get('newType'));
-        },
-
-        on: function () {
-            this._events.on.apply(this._events, arguments);
-            return this;
-        },
-
-        un: function () {
-            this._events.un.apply(this._events, arguments);
-            return this;
         },
 
         original: function () {

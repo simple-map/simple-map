@@ -1,6 +1,7 @@
 ({
     mustDeps: [
+        {block: 'behaviour', elem: 'observable'},
         {block: 'plugin'},
-        {block: 'util', elems: ['compare', 'event-manager', 'extend', 'inherit']}
+        {block: 'util', elems: ['compare', 'extend']}
     ]
 });

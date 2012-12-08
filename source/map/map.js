@@ -1,18 +1,15 @@
 sm.plugin('Map', function (sandbox) {
 
-    var Map = sandbox.util.mixin(
-        function (options) {
-            this._factory = new sandbox.view.Factory(options.api);
+    function Map(options) {
+        this._factory = new sandbox.view.Factory(options.api);
 
-            this._model = new sandbox.Model(options);
-            this._view =  this._factory.createMapView(this._model),
+        this._model = new sandbox.Model(options);
+        this._view =  this._factory.createMapView(this._model),
 
-            this._onViewReady();
-        },
-        sandbox.util.EventManager
-    );
+        this._onViewReady();
+    }
 
-    sandbox.util.extend(Map.prototype, {
+    sandbox.util.extend(Map.prototype, sandbox.behaviour.Observable, {
 
         remove: function () {
             this._view.destroy();

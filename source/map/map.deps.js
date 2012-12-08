@@ -1,8 +1,9 @@
 ({
     mustDeps: [
+        {block: 'behaviour', elem: 'observable'},
         {block: 'plugin'},
         {block: 'model'},
-        {block: 'util', elems: ['event-manager', 'extend', 'mixin']},
+        {block: 'util', elems: ['extend', 'mixin']},
         {block: 'view', elems: ['factory']}
     ]
 });

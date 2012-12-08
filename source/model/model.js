@@ -17,10 +17,9 @@ sm.plugin('Model', function (sandbox, undefined) {
      */
     var Model = function (initialValues) {
         this._values = initialValues || {};
-        sandbox.util.EventManager.call(this);
     };
 
-    sandbox.util.inherit(Model, sandbox.util.EventManager, {
+    sandbox.util.extend(Model.prototype, sandbox.behaviour.Observable, {
 
         set: function (key, newValue, silent) {
             var field, lastPart, oldValue, parts, path, values;
