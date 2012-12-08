@@ -1,7 +1,15 @@
 {
-  "author": "",
-  "name": "sm",
+  "name": "simple-map",
+  "description": "Wrapper with simple interface for the most popular geo API",
   "version": "0.0.1",
+  "author": "Alexander Tarmolov <tarmolov@gmail.com> (http://github.com/tarmolov)",
+  "maintainers": [
+    "Alexander Tarmolov <tarmolov@gmail.com> (http://github.com/tarmolov)"
+  ],
+  "contributors": [
+    "Alexander Tarmolov <tarmolov@gmail.com> (http://github.com/tarmolov)",
+    "Kirill Dmitrenko <kdmitrenko@gmail.com> (http://github.com/dmikis)"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/simple-map/simple-map.git"
@@ -9,15 +17,15 @@
   "engines": {
     "node": "0.6 | 0.7 | 0.8 | 0.9"
   },
-  "dependencies": {},
   "devDependencies": {
-    "bem": "0.5.19",
+    "bem": "~0.5.19",
     "ometajs": "~2.1.10",
-    "xjst": "0.2.21",
+    "xjst": "~0.2.21",
     "dom-js": "*",
     "jshint": "*",
     "phantomjs": "*"
   },
-  "optionalDependencies": {},
-  "private": true
+  "scripts": {
+    "test": "make test"
+  }
 }
