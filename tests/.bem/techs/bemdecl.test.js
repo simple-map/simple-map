@@ -1,17 +1,18 @@
+/*global processDir, require*/
 var BEM = require('bem');
 var Q = BEM.require('q');
 var fs = require('fs');
 
-var PAGE_TEST_NAME = 'index';
+var PAGE_TEST_NAME = 'unit';
 var PAGE_TEST_PATH = './tests/' + PAGE_TEST_NAME + '/' + PAGE_TEST_NAME + '.bemdecl.js';
 
-function reduceResult (arr) {
+function reduceResult(arr) {
     return arr.reduce(function (result, item) {
         return item ? result.concat(item): result;
-    }, [])
+    }, []);
 }
 
-function processFile (dirPath, file) {
+function processFile(dirPath, file) {
     var d = Q.defer();
     var filePath = dirPath + '/' + file;
 
@@ -122,7 +123,7 @@ function generateBemDecl(files) {
     fs.writeFile(PAGE_TEST_PATH, 'exports.blocks=' + JSON.stringify(bemDecl), 'utf-8');
 }
 
-exports.create = function (prefix, vars, force) {
+exports.create = function (prefix, vars) {
     var testDirs = (vars.BlockName || '').trim().split(' ');
 
     findFiles(testDirs).then(function (files) {

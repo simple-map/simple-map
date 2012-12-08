@@ -40,7 +40,8 @@ test:
 	@if [ "$(shell ls -1R ${TEST_DIRS} | grep --color=none '\.test\.js')" ]; then \
 		$(BEM) create block -T ./tests/.bem/techs/bemdecl.test.js "$(TEST_DIRS)"; \
 		$(BEM) make tests; \
-		$(PHANTOMJS) ./tools/phantom/phantom.js ./tests/index/index.html; \
+		echo; \
+		$(PHANTOMJS) ./tools/phantom/phantom.js ./tests/unit/unit.html; \
 	fi
 
 config:

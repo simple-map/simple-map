@@ -15,7 +15,8 @@
     "ometajs": "~2.1.10",
     "xjst": "0.2.21",
     "dom-js": "*",
-    "jshint": "*"
+    "jshint": "*",
+    "phantomjs": "*"
   },
   "optionalDependencies": {},
   "private": true
