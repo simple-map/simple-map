@@ -1,14 +1,16 @@
 sm.plugin('Map', function (sandbox) {
 
-    function Map(options) {
-        this._factory = new sandbox.view.Factory(options.api);
+    var Map = sandbox.util.mixin(
+        function (options) {
+            this._factory = new sandbox.view.Factory(options.api);
 
-        this._model = new sandbox.Model(options);
-        this._view =  this._factory.createMapView(this._model),
-        this._events = new sandbox.util.EventManager();
+            this._model = new sandbox.Model(options);
+            this._view =  this._factory.createMapView(this._model),
 
-        this._onViewReady();
-    }
+            this._onViewReady();
+        },
+        sandbox.util.EventManager
+    );
 
     sandbox.util.extend(Map.prototype, {
 
@@ -33,19 +35,9 @@ sm.plugin('Map', function (sandbox) {
                 'type_changed'
             ].map(function (key) {
                 _this._view.on(key, function (data) {
-                    this._events.fire(key, data);
+                    this.fire(key, data);
                 }, _this);
             });
-        },
-
-        on: function () {
-            this._events.on.apply(this._events, arguments);
-            return this;
-        },
-
-        un: function () {
-            this._events.un.apply(this._events, arguments);
-            return this;
         },
 
         prop: function (key, value) {

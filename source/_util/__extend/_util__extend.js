@@ -9,7 +9,7 @@ sm.plugin('_util.extend', function () {
      */
     function extend(origin /*, obj, ... */) {
         var obj;
-        for (var i = 1, l = arguments.length; i < l; ++i) {
+        for (var i = 1, l = arguments.length; i < l; i++) {
             obj = arguments[i];
             Object.keys(obj).forEach(function (key) {
                 origin[key] = obj[key];
