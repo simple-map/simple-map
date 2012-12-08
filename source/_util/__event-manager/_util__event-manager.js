@@ -1,15 +1,7 @@
 sm.plugin('_util.EventManager', function (sandbox) {
 
-    var callbacksStorageName = '_eventsCallbacks_' + Math.random();
-
-    /**
-     * Simple event controller.
-     *
-     * @mixin
-     */
-    function EventManager() {
-        this[callbacksStorageName] = {};
-    }
+    var callbacksStorageName = '__' + Number(new Date()) + 'storage';
+    var EventManager = function () {};
 
     sandbox.util.extend(EventManager.prototype, {
 
@@ -25,8 +17,10 @@ sm.plugin('_util.EventManager', function (sandbox) {
         on: function (eventName, callback, ctx) {
             eventName = Array.isArray(eventName) ? eventName : eventName.split(' ');
 
+            var storage = this[callbacksStorageName] || (this[callbacksStorageName] = {});
+
             eventName.forEach(function (singleEventName) {
-                (this[callbacksStorageName][singleEventName] || (this[callbacksStorageName][singleEventName] = []))
+                (storage[singleEventName] || (storage[singleEventName] = []))
                     .push({
                         fn: callback,
                         ctx: ctx
@@ -53,20 +47,21 @@ sm.plugin('_util.EventManager', function (sandbox) {
             }
 
             eventName = Array.isArray(eventName) ? eventName : eventName.split(' ');
+            var storage = this[callbacksStorageName];
 
             eventName.forEach(function (singleEventName) {
-                var eventCallbacks = this[callbacksStorageName][singleEventName];
+                var eventCallbacks = storage[singleEventName];
 
                 if (eventCallbacks) {
                     if (callback) {
-                        this[callbacksStorageName][singleEventName] = eventCallbacks
+                        storage[singleEventName] = eventCallbacks
                             .filter(function (storedCallback) {
                                 var isContextsEqual = (!ctx || ctx === storedCallback.ctx);
 
                                 return !(callback === storedCallback.fn && isContextsEqual);
                             });
                     } else {
-                        this[callbacksStorageName][singleEventName] = [];
+                        storage[singleEventName] = [];
                     }
                 }
             }, this);
