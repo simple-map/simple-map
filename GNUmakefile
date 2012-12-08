@@ -14,7 +14,9 @@ JASMINE_DIR = tests/jasmine
 all: config node_modules jasmine server
 
 node_modules:
-	cd tools; npm install; cd -
+	@if [ ! -d "tools/node_modules" ]; then \
+		cd tools; npm install; cd - ;\
+	fi
 
 jasmine:
 	@if [ ! -d "$(JASMINE_DIR)" ]; then \
