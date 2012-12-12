@@ -2,8 +2,7 @@
     mustDeps: [
         {block: 'plugin'},
         {block: 'view', elems: [
-            {elem: 'factories'},
-            {elem: 'factory', mods: {api: ['google', 'yandex']}}
+            {elem: 'map', mods: {api: 'google'}}
         ]}
     ]
 });

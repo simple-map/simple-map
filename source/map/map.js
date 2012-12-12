@@ -1,12 +1,28 @@
 sm.plugin('Map', function ($) {
 
+    var PROXY_EVENTS = [
+        'bounds_changed',
+        'center_changed',
+        'zoom_changed',
+        'click',
+        'dblclick',
+        'dragstart',
+        'drag',
+        'dragend',
+        'mouseover',
+        'mousemove',
+        'mouseout',
+        'rightclick',
+        'type_changed'
+    ];
+
     function Map(options) {
         this._factory = new $.view.Factory(options.api);
 
         this._model = new $.Model(options);
         this._view =  this._factory.createMapView(this._model),
 
-        this._onViewReady();
+        this.init();
     }
 
     $.util.extend(Map.prototype, $.behaviour.Observable, {
@@ -14,26 +30,13 @@ sm.plugin('Map', function ($) {
         remove: function () {
             this._view.destroy();
             this._model.destroy();
+            this.un();
             this._view = this._model = null;
         },
 
-        _onViewReady: function () {
+        init: function () {
             var _this = this;
-            [
-                'bounds_changed',
-                'center_changed',
-                'zoom_changed',
-                'click',
-                'dblclick',
-                'dragstart',
-                'drag',
-                'dragend',
-                'mouseover',
-                'mousemove',
-                'mouseout',
-                'rightclick',
-                'type_changed'
-            ].map(function (key) {
+            PROXY_EVENTS.map(function (key) {
                 _this._view.on(key, function (data) {
                     this.fire(key, data);
                 }, _this);

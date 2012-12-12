@@ -1,7 +1,7 @@
 sm.plugin(function ($) {
 
     var exports = function (options) {
-        return new $.Map(options);
+        return $.Map(options);
     };
 
     var plugin = sm.plugin;
