@@ -1,4 +1,4 @@
-sm.plugin('view.factories.google', function ($) {
+plugin('view.factories.google', function ($) {
 
     return {
         createMapView: function (model) {

@@ -18,7 +18,10 @@
         "beforeEach",
         "waits",
         "waitsFor",
-        "runs"
+        "runs",
+        "require",
+        "plugin",
+        "$"
     ],
 
     "debug"         : false,  // Allow debugger statements e.g. browser breakpoints.

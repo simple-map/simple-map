@@ -1,4 +1,4 @@
-sm.plugin('util.inherit', function ($) {
+plugin('util.inherit', function ($) {
 
     /**
      * Classic OOP inheritance implementation.

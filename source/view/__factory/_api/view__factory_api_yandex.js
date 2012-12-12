@@ -1,4 +1,4 @@
-sm.plugin('view.factories.yandex', function ($) {
+plugin('view.factories.yandex', function ($) {
 
     return {
         createMapView: function (model) {

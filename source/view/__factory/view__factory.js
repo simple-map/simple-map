@@ -1,4 +1,4 @@
-sm.plugin('view.Factory', function ($, undefined) {
+plugin('view.Factory', function ($, undefined) {
 
     var DEFAULT_API = 'yandex';
 

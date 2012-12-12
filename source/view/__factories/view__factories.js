@@ -1,3 +1,3 @@
-sm.plugin('view.factories', function () {
+plugin('view.factories', function () {
     return {};
 });

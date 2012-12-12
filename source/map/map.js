@@ -1,4 +1,4 @@
-sm.plugin('Map', function ($) {
+plugin('Map', function ($) {
 
     var PROXY_EVENTS = [
         'bounds_changed',

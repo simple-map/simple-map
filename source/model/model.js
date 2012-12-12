@@ -1,4 +1,4 @@
-sm.plugin('Model', function ($, undefined) {
+plugin('Model', function ($, undefined) {
 
     function getNestedField(data, parts) {
         var i, il;

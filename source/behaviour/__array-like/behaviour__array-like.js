@@ -1,4 +1,4 @@
-sm.plugin('behaviour.ArrayLike', function () {
+plugin('behaviour.ArrayLike', function () {
 
     return {
         length: 0,

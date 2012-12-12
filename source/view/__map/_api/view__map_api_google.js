@@ -1,4 +1,4 @@
-sm.plugin('view.map.Google', function ($) {
+plugin('view.map.Google', function ($) {
 
     var API_URL = 'https://maps.googleapis.com/maps/api/js?v=3&sensor=false&callback=googleLoadApi';
 

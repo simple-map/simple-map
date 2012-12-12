@@ -1,16 +1,9 @@
-sm.plugin(function ($) {
+var sm = window.sm = function (options) {
+    return $.Map(options);
+};
 
-    var exports = function (options) {
-        return $.Map(options);
-    };
-
-    var plugin = sm.plugin;
-    $.util.extend(exports, {
-        plugin: function (name, callback) {
-            return plugin(name, callback, sm);
-        }
-    });
-
-    // TODO: create global closure with plugin function
-    sm = exports;
+$.util.extend(sm, {
+    plugin: function (name, callback) {
+        return plugin(name, callback, sm);
+    }
 });

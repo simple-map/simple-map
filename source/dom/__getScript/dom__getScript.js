@@ -1,4 +1,4 @@
-sm.plugin('dom.getScript', function () {
+plugin('dom.getScript', function () {
 
     var context = {};
 

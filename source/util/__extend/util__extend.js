@@ -1,4 +1,4 @@
-sm.plugin('util.extend', function () {
+plugin('util.extend', function () {
 
     /**
      * Extend origin object by values from some others.

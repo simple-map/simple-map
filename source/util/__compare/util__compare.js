@@ -1,4 +1,4 @@
-sm.plugin('util.compare', function () {
+plugin('util.compare', function () {
 
     var toString = Object.prototype.toString;
 

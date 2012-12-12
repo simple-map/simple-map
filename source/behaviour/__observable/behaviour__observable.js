@@ -1,4 +1,4 @@
-sm.plugin('behaviour.Observable', function () {
+plugin('behaviour.Observable', function () {
 
     var callbacksStorageName = '__' + Number(new Date()) + 'storage';
 
