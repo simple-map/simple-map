@@ -9,7 +9,7 @@ PHANTOMJS := ./tools/node_modules/phantomjs/bin/phantomjs
 JASMINE_VERSION = 1.3.0
 JASMINE_ARCHIEVE = jasmine-standalone-$(JASMINE_VERSION).zip
 JASMINE_ARCHIVE_URL = https://github.com/downloads/pivotal/jasmine/$(JASMINE_ARCHIEVE)
-JASMINE_DIR = tests/jasmine
+JASMINE_DIR = tests/unit/jasmine
 
 all: config node_modules jasmine server
 
@@ -19,12 +19,11 @@ node_modules:
 	fi
 
 jasmine:
-	@if [ ! -d "$(JASMINE_DIR)" ]; then \
+	@if [ ! -f "$(JASMINE_DIR)/jasmine.js" ]; then \
 		wget $(JASMINE_ARCHIVE_URL); \
 		unzip -o $(JASMINE_ARCHIEVE) -d tmp; \
-		mv tmp/lib/jasmine-$(JASMINE_VERSION) $(JASMINE_DIR); \
+		mv tmp/lib/jasmine-$(JASMINE_VERSION)/* $(JASMINE_DIR); \
 		rm -rf tmp $(JASMINE_ARCHIEVE); \
-		cp ./tools/jasmine/*.* $(JASMINE_DIR); \
 	fi
 
 server:

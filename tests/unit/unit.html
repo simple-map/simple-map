@@ -5,16 +5,16 @@
 
         <script src="http://yandex.st/jquery/1.8.3/jquery.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="../jasmine/jasmine.css">
-        <script src="../jasmine/jasmine.js"></script>
-        <script src="../jasmine/jasmine-html.js"></script>
-        <script src="../jasmine/jasmine-console.js"></script>
+        <link rel="stylesheet" type="text/css" href="jasmine/jasmine.css">
+        <script src="jasmine/jasmine.js"></script>
+        <script src="jasmine/jasmine-html.js"></script>
+        <script src="jasmine/jasmine-console.js"></script>
 
-        <script src="_index.js"></script>
-        <script src="_index.test.js"></script>
+        <script src="_unit.js"></script>
+        <script src="_unit.test.js"></script>
 
         <script>
-            $(window).load(function() {
+            window.onload = function() {
                 jasmine._reporterInstance = new jasmine.HtmlReporter();
                 setTimeout(
                     function() {
@@ -22,7 +22,7 @@
                         jasmine.getEnv().execute();
                     },
                 10);
-            });
+            };
         </script>
     </head>
 <body>
