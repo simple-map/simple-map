@@ -1,8 +1,1 @@
-exports.getTechs = function () {
-
-    return {
-        'bemjson.js': '',
-        'js': 'js-i'
-    };
-
-};
+exports.baseLevelPath = require.resolve('../../.bem/levels/blocks.js');
