@@ -31,7 +31,7 @@ rebuild:
 	$(BEM) make
 
 jshint:
-	@$(JSHINT) --config tools/jshint/jshintrc --reporter tools/jshint/reporter.js $(JSHINT_DIRS)
+	@$(JSHINT) --reporter tools/jshint/reporter.js $(JSHINT_DIRS)
 
 test:
 	@if [ "$(shell ls -1R ${TEST_DIRS} | grep --color=none '\.test\.js')" ]; then \

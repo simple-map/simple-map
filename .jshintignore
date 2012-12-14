@@ -1,3 +1,3 @@
-source/dom/__getScript/dom__getScript.js
-source/dom/__ready/dom__ready.js
-source/plugin/plugin.js
+core/dom/__getScript/dom__getScript.js
+core/dom/__ready/dom__ready.js
+core/plugin/plugin.js
