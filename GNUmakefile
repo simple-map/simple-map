@@ -1,10 +1,10 @@
-BEM := ./tools/node_modules/bem/bin/bem
+BEM := ./node_modules/bem/bin/bem
 
-JSHINT := ./tools/node_modules/jshint/bin/hint
+JSHINT := ./node_modules/jshint/bin/hint
 JSHINT_DIRS = core geoapi
 
 TEST_DIRS := core geoapi
-PHANTOMJS := ./tools/node_modules/phantomjs/bin/phantomjs
+PHANTOMJS := ./node_modules/phantomjs/bin/phantomjs
 
 JASMINE_VERSION = 1.3.0
 JASMINE_ARCHIEVE = jasmine-standalone-$(JASMINE_VERSION).zip
@@ -14,9 +14,7 @@ JASMINE_DIR = tests/unit/jasmine
 all: config node_modules jasmine server
 
 node_modules:
-	@if [ ! -d "tools/node_modules" ]; then \
-		cd tools; npm install; cd - ;\
-	fi
+	@[ ! -d "node_modules" ] && npm install;
 
 jasmine:
 	@if [ ! -f "$(JASMINE_DIR)/jasmine.js" ]; then \
