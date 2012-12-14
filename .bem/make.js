@@ -1,21 +1,21 @@
 MAKE.decl('Arch', {
 
-    blocksLevelsRegexp: /^source$/,
+    blocksLevelsRegexp: /^(core|geoapi)$/,
 
-    bundlesLevelsRegexp: /^(build|tests)$/i,
+    bundlesLevelsRegexp: /^(build|tests)$/i
 
 });
 
 MAKE.decl('BundleNode', {
 
-    getTechs: function() {
+    getTechs: function () {
 
         var techs = [
             'bemjson.js',
             'bemdecl.js',
             'deps.js',
             'js'
-        ]
+        ];
 
         if (this.getLevelPath() === 'tests') {
             techs.push('test.js');
@@ -24,7 +24,7 @@ MAKE.decl('BundleNode', {
         return techs;
     },
 
-    'create-test.js-node': function(tech, bundleNode, magicNode) {
+    'create-test.js-node': function (tech, bundleNode, magicNode) {
 
         return this.setBemBuildNode(
             tech,
@@ -34,7 +34,7 @@ MAKE.decl('BundleNode', {
             magicNode);
     },
 
-    'create-test.js-optimizer-node': function(tech, sourceNode, bundleNode) {
+    'create-test.js-optimizer-node': function (tech, sourceNode, bundleNode) {
         return this['create-js-optimizer-node'].apply(this, arguments);
     }
 

@@ -21,7 +21,8 @@
         "runs",
         "require",
         "plugin",
-        "$"
+        "$",
+        "MAKE"
     ],
 
     "debug"         : false,  // Allow debugger statements e.g. browser breakpoints.

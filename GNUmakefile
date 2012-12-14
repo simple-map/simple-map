@@ -1,9 +1,9 @@
 BEM := ./tools/node_modules/bem/bin/bem
 
 JSHINT := ./tools/node_modules/jshint/bin/hint
-JSHINT_DIRS = source
+JSHINT_DIRS = core geoapi
 
-TEST_DIRS := source
+TEST_DIRS := core geoapi
 PHANTOMJS := ./tools/node_modules/phantomjs/bin/phantomjs
 
 JASMINE_VERSION = 1.3.0
