@@ -1,4 +1,4 @@
-plugin('view.map.Yandex', function ($) {
+plugin('geoapi.yandex.Map', function ($) {
 
     var API_URL = 'http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU';
 

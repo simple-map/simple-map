@@ -17,7 +17,7 @@ plugin('Map', function ($) {
     ];
 
     function Map(options) {
-        this._factory = new $.view.Factory(options.api);
+        this._factory = new $.geoapi.Factory(options.api);
 
         this._model = new $.Model(options);
         this._view =  this._factory.createMapView(this._model),

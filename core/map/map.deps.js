@@ -4,6 +4,8 @@
         {block: 'plugin'},
         {block: 'model'},
         {block: 'util', elem: 'extend'},
-        {block: 'view', elems: ['factory']}
+        {block: 'factory'},
+        {block: 'yandex'},
+        {block: 'google'}
     ]
 });
