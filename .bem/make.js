@@ -1,6 +1,6 @@
 MAKE.decl('Arch', {
 
-    blocksLevelsRegexp: /^(core|geoapi)$/,
+    blocksLevelsRegexp: /^(source\/core|source\/geoapi)$/,
 
     bundlesLevelsRegexp: /^(build|tests)$/i
 

@@ -15,8 +15,8 @@ exports.getConfig = function () {
     return {
 
         bundleBuildLevels: this.resolvePaths([
-            '../../core',
-            '../../geoapi'
+            '../../source/core',
+            '../../source/geoapi'
         ])
 
     };
