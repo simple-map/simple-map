@@ -1,3 +1,5 @@
+/*global $:true*/
+/*exported plugin*/
 var $ = {};
 
 function deepExtend(destination, source) {
@@ -28,13 +30,13 @@ function plugin(name, callback, namespace) {
     }
 
     var parts = name.split('.');
-    var plugin = {};
-    var temp = plugin;
+    var pluginNamespace = {};
+    var temp = pluginNamespace;
     while (parts.length) {
         var key = parts.shift();
         temp[key] = !parts.length ? callback.call(namespace, $): {};
         temp = temp[key];
     }
 
-    deepExtend(namespace, plugin);
+    deepExtend(namespace, pluginNamespace);
 }

@@ -5,7 +5,6 @@
     "browser"       : true,   // Standard browser globals e.g. `window`, `document`.
 
     "predef"        : [
-        "sm",
         "ymaps",
         "google",
         "exports",
