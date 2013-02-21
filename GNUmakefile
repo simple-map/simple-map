@@ -1,10 +1,11 @@
-BEM := ./node_modules/bem/bin/bem
+NPM_BIN = $(CURDIR)/node_modules/.bin/
+BEM := $(NPM_BIN)bem
 
-JSHINT := ./node_modules/jshint/bin/jshint
-JSHINT_DIRS = source
+JSHINT := $(NPM_BIN)jshint
+JSHINT_DIRS := source
 
-TEST_DIRS := source
-PHANTOMJS := ./node_modules/phantomjs/bin/phantomjs
+TEST_BLOCKS := source
+PHANTOMJS := $(NPM_BIN)phantomjs
 
 JASMINE_VERSION = 1.3.0
 JASMINE_ARCHIEVE = jasmine-standalone-$(JASMINE_VERSION).zip
@@ -31,20 +32,25 @@ rebuild:
 	$(BEM) make
 
 jshint:
-	@$(JSHINT) --reporter tools/jshint/reporter.js $(JSHINT_DIRS)
+	@echo Lint js files...
+	@$(JSHINT) $(JSHINT_DIRS)
+	@echo done
 
 test:
-	@if [ "$(shell ls -1R ${TEST_DIRS} | grep --color=none '\.test\.js')" ]; then \
-		$(BEM) create block -T ./tests/.bem/techs/bemdecl.test.js "$(TEST_DIRS)"; \
+	@if [ "$(shell ls -1R ${TEST_BLOCKS} | grep --color=none '\.test\.js')" ]; then \
+		echo Create test page...; \
+		$(BEM) create block -T ./tests/.bem/techs/bemdecl.test.js "$(TEST_BLOCKS)" || exit 1; \
+		echo done; \
+		echo Build test page...; \
 		$(BEM) make tests; \
-		echo; \
-		$(PHANTOMJS) ./tools/phantom/phantom.js ./tests/unit/unit.html; \
+		echo done; \
+		$(PHANTOMJS) ./tests/unit/phantom.js ./tests/unit/unit.html; \
 	fi
 
 config:
 	@if [ -d .git ]; then \
 		for hook in pre-commit ; do \
-			ln -sf ./../../tools/git/hooks/$$hook .git/hooks/$$hook; \
+			ln -sf ./../../.githooks/$$hook .git/hooks/$$hook; \
 		done \
 	fi
 
