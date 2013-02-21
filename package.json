@@ -16,7 +16,7 @@
     "ometajs": "~2.1.10",
     "xjst": "~0.2.21",
     "dom-js": "*",
-    "jshint": "git://github.com/jshint/jshint.git",
+    "jshint": "~1.0.0",
     "phantomjs": "~1.8.1-3"
   },
   "engines": {
