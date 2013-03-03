@@ -1,4 +1,4 @@
-plugin('geoapi.yandex.Map', function ($) {
+plugin('geoapi.yandex.Map', function (sandbox) {
 
     var API_URL = 'http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU';
 
@@ -13,7 +13,7 @@ plugin('geoapi.yandex.Map', function ($) {
         }
 
         if (!window.ymaps) {
-            $.dom.getScript(API_URL, function () {
+            $.getScript(API_URL, function () {
                 ymaps.ready(onCallback);
             });
         } else {
@@ -21,7 +21,7 @@ plugin('geoapi.yandex.Map', function ($) {
         }
 
         // TODO: show loader until api will be loaded
-        $.dom.ready(onCallback);
+        $(onCallback);
     }
 
     function View(model) {
@@ -34,7 +34,7 @@ plugin('geoapi.yandex.Map', function ($) {
         });
     }
 
-    $.util.extend(View.prototype, $.behaviour.Observable, {
+    $.extend(View.prototype, sandbox.behaviour.Observable, {
         _initialize: function () {
             var containerID = this._model.get('container');
             // TODO: debug error for container with null size

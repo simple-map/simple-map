@@ -1,6 +1,6 @@
-/*global $:true*/
+/*global sandbox:true*/
 /*exported plugin*/
-var $ = {};
+var sandbox = {};
 
 function deepExtend(destination, source) {
     for (var property in source) {
@@ -23,9 +23,9 @@ function deepExtend(destination, source) {
  * @returns {SM} sm
  */
 function plugin(name, callback, namespace) {
-    namespace = namespace || $;
+    namespace = namespace || sandbox;
     if (typeof name === 'function') {
-        name.call(namespace, $);
+        name.call(namespace, sandbox);
         return;
     }
 
@@ -34,7 +34,7 @@ function plugin(name, callback, namespace) {
     var temp = pluginNamespace;
     while (parts.length) {
         var key = parts.shift();
-        temp[key] = !parts.length ? callback.call(namespace, $): {};
+        temp[key] = !parts.length ? callback.call(namespace, sandbox): {};
         temp = temp[key];
     }
 

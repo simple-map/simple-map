@@ -1,4 +1,4 @@
-plugin('Map', function ($) {
+plugin('Map', function (sandbox) {
 
     var PROXY_EVENTS = [
         'bounds_changed',
@@ -17,15 +17,15 @@ plugin('Map', function ($) {
     ];
 
     function Map(options) {
-        this._factory = new $.geoapi.Factory(options.api);
+        this._factory = new sandbox.geoapi.Factory(options.api);
 
-        this._model = new $.Model(options);
+        this._model = new sandbox.Model(options);
         this._view =  this._factory.createMapView(this._model),
 
         this.init();
     }
 
-    $.util.extend(Map.prototype, $.behaviour.Observable, {
+    $.extend(Map.prototype, sandbox.behaviour.Observable, {
 
         remove: function () {
             this._view.destroy();

@@ -1,4 +1,4 @@
-plugin('Model', function ($, undefined) {
+plugin('Model', function (sandbox, undefined) {
 
     function getNestedField(data, parts) {
         var i, il;
@@ -19,7 +19,7 @@ plugin('Model', function ($, undefined) {
         this._values = initialValues || {};
     };
 
-    $.util.extend(Model.prototype, $.behaviour.Observable, {
+    $.extend(Model.prototype, sandbox.behaviour.Observable, {
 
         set: function (key, newValue, silent) {
             var field, lastPart, oldValue, parts, path, values;
@@ -51,7 +51,7 @@ plugin('Model', function ($, undefined) {
 
         _notify: function (parts, field, oldValue, newValue) {
             var key;
-            if (!$.util.compare(oldValue, newValue)) {
+            if (!sandbox.util.compare(oldValue, newValue)) {
                 // notify recursively about key changes
                 if (oldValue && oldValue.constructor === Object) {
                     for (key in oldValue) {

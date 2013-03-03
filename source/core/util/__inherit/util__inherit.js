@@ -1,4 +1,4 @@
-plugin('util.inherit', function ($) {
+plugin('util.inherit', function (sandbox) {
 
     /**
      * Classic OOP inheritance implementation.
@@ -14,7 +14,7 @@ plugin('util.inherit', function ($) {
         descendant.superclass = parent.prototype;
 
         if (methods) {
-            $.util.extend(descendant.prototype, methods);
+            $.extend(descendant.prototype, methods);
         }
 
         return descendant;

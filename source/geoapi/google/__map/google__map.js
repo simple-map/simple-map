@@ -1,4 +1,4 @@
-plugin('geoapi.google.Map', function ($) {
+plugin('geoapi.google.Map', function (sandbox) {
 
     var API_URL = 'https://maps.googleapis.com/maps/api/js?v=3&sensor=false&callback=googleLoadApi';
 
@@ -15,13 +15,13 @@ plugin('geoapi.google.Map', function ($) {
         window.googleLoadApi = onCallback;
 
         if (!window.google || !window.google.maps) {
-            $.dom.getScript(API_URL);
+            $.getScript(API_URL);
         } else {
             setTimeout(onCallback, 0);
         }
 
         // TODO: show loader until api will be loaded
-        $.dom.ready(onCallback);
+        $(onCallback);
     }
 
     function View(model) {
@@ -35,7 +35,7 @@ plugin('geoapi.google.Map', function ($) {
         });
     }
 
-    $.util.extend(View.prototype, $.behaviour.Observable, {
+    $.extend(View.prototype, sandbox.behaviour.Observable, {
         _initialize: function () {
             var containerID = this._model.get('container');
             // TODO: debug error for container with null size

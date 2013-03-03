@@ -12,7 +12,7 @@
     "url": "git://github.com/simple-map/simple-map.git"
   },
   "devDependencies": {
-    "bem": "~0.5.20",
+    "bem": "0.5.24",
     "ometajs": "~2.1.10",
     "xjst": "~0.2.21",
     "dom-js": "*",

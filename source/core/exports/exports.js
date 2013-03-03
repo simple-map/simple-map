@@ -1,8 +1,8 @@
 var sm = window.sm = function (options) {
-    return $.Map(options);
+    return sandbox.Map(options);
 };
 
-$.util.extend(sm, {
+$.extend(sm, {
     plugin: function (name, callback) {
         return plugin(name, callback, sm);
     }
