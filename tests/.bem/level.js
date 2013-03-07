@@ -19,8 +19,8 @@ exports.getConfig = function () {
 
     return BEM.util.extend(this.__base() || {}, {
         bundleBuildLevels: this.resolvePaths([
-            '../../source/core',
-            '../../source/geoapi',
+            '../../src/core',
+            '../../src/geoapi',
             '../unit/geoapi'
         ])
     });
