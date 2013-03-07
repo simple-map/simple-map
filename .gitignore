@@ -4,8 +4,8 @@ build/*/*.*
 !build/*/*.bemjson.js
 !build/*/*.html
 !level.js
-tests/unit/jasmine/*.*
-!tests/unit/jasmine/jasmine-console.js
+tests/unit/cache/
+!tests/unit/cache/jasmine/jasmine-console.js
 tests/*/*.*
 !tests/*/*.bemjson.js
 !tests/*/*.html

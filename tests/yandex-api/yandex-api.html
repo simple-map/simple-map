@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full,DomEvent&lang=ru-RU&mode=debug" type="text/javascript"></script>
+    <script type="text/javascript">
+        ymaps.ready(function () {
+            var map = new ymaps.Map('map', {
+                center: [55.76, 37.64],
+                zoom: 10
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="map" style="width:600px; height:300px"></div>
+</body>
+</html>

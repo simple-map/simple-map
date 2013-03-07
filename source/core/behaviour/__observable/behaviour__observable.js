@@ -76,7 +76,8 @@ plugin('behaviour.Observable', function () {
          * @returns {this}
          */
         fire: function (eventName, eventData) {
-            var eventCallbacks = this[callbacksStorageName][eventName];
+            var storage = this[callbacksStorageName] || (this[callbacksStorageName] = {});
+            var eventCallbacks = storage[eventName];
 
             if (eventCallbacks) {
                 eventCallbacks.forEach(function (callback) {

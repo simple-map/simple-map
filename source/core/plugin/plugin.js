@@ -2,18 +2,6 @@
 /*exported plugin*/
 var sandbox = {};
 
-function deepExtend(destination, source) {
-    for (var property in source) {
-        if (typeof source[property] === "object") {
-            destination[property] = destination[property] || {};
-            deepExtend(destination[property], source[property]);
-        } else {
-            destination[property] = source[property];
-        }
-    }
-    return destination;
-}
-
 /**
  * Plugin system.
  * Add some functionality to sm namespace or to internal sandbox.
@@ -38,5 +26,5 @@ function plugin(name, callback, namespace) {
         temp = temp[key];
     }
 
-    deepExtend(namespace, pluginNamespace);
+    $.extend(true, namespace, pluginNamespace);
 }

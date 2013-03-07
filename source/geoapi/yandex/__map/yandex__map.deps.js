@@ -2,7 +2,7 @@
     mustDeps: [
         {block: 'behaviour', elem: 'observable'},
         {block: 'plugin'},
-        {block: 'model'},
+        {block: 'yandex', elems: ['util']},
         {block: 'util', elems: ['compare']}
     ]
 });

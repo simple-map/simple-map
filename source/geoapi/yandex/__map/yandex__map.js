@@ -1,126 +1,110 @@
 plugin('geoapi.yandex.Map', function (sandbox) {
 
-    var API_URL = 'http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU';
+    var typeConverter = sandbox.geoapi.yandex.util.typeConverter;
 
-    function prepareAPI(callback) {
-        var asyncCount = 2;
-
-        function onCallback() {
-            asyncCount--;
-            if (!asyncCount) {
-                callback();
-            }
-        }
-
-        if (!window.ymaps) {
-            $.getScript(API_URL, function () {
-                ymaps.ready(onCallback);
-            });
-        } else {
-            setTimeout(onCallback, 0);
-        }
-
-        // TODO: show loader until api will be loaded
-        $(onCallback);
-    }
-
-    function View(model) {
-        this._model = model;
-        /// this._map = null;
-
-        var _this = this;
-        prepareAPI(function () {
-            _this._initialize();
+    function YandexMap(container, options) {
+        this._container = container;
+        this._map = new ymaps.Map(this._container, {
+            center: options.center,
+            zoom: options.zoom,
+            type: typeConverter.toYMaps(options.type)
         });
+        this._setListeners();
     }
 
-    $.extend(View.prototype, sandbox.behaviour.Observable, {
-        _initialize: function () {
-            var containerID = this._model.get('container');
-            // TODO: debug error for container with null size
-            this._container =  typeof containerID === 'string' ? // TODO: container could be selector
-                document.getElementById(containerID):
-                containerID;
+    $.extend(YandexMap.prototype, sandbox.behaviour.Observable, {
 
-            this._map = new ymaps.Map(this._container, {
-                //TODO: check center before setting it to map (cause error in ymaps api)
-                center: this._model.get('center'), // TODO: center could be address
-                zoom: this._model.get('zoom')
-            });
-
-            this._setListeners();
-        },
-
-        destroy: function () {
-            //this._events.removeAll() TODO: add method removeAll for eventManager
-            if (this._map) {
-                this._map.destroy();
-            }
+        destruct: function () {
+            this._unsetListeners();
+            this._map.destroy();
+            this._container = this._map = null;
         },
 
         _setListeners: function () {
-            this._model.on('center', function (data) {
-                this._map.setCenter(data.newValue);
-            }, this);
-
-            this._model.on('zoom', function (data) {
-                this._map.setZoom(data.newValue);
-            }, this);
-
+            var dragBehavior = this._map.behaviors.get('drag');
+            if (dragBehavior) {
+                this._dragListeners = dragBehavior.events.group()
+                    .add('dragstart', function () {
+                        this.fire('dragstart');
+                    }, this)
+                    .add('drag', function () {
+                        this.fire('drag');
+                    }, this)
+                    .add('dragend', function () {
+                        this.fire('dragend');
+                    }, this);
+            }
             this._listeners = this._map.events.group()
-                // TODO: dragstart, drag, dragend isn't implemented in ymaps api
-                .add('boundschange', this._onBoundsChange, this)
-                .add('click', this._onClick, this)
-                .add('dblclick', this._onDblClick, this)
-                .add('mouseenter', this._onMouseOver, this)
-                .add('mousemove', this._onMouseMove, this)
-                .add('mouseleave', this._onMouseOut, this)
-                .add('contextmenu', this._onRightClick, this)
-                .add('typechange', this._onTypeChange, this);
+                .add('boundschange', function (e) {
+                    this.fire('boundschange');
+                    if (!sandbox.util.compare(e.get('oldCenter'), e.get('newCenter'))) {
+                        this.fire('centerchange');
+                    }
+                    if (e.get('oldZoom') !== e.get('newZoom')) {
+                        this.fire('zoomchange');
+                    }
+                }, this)
+                .add('click', function (e) {
+                    this.fire('click', {position: e.get('coordPosition')});
+                }, this)
+                .add('dblclick', function (e) {
+                    this.fire('dblclick', {position: e.get('coordPosition'), type: e.get('zoomDelta') > 0 ? 'left' : 'right'});
+                }, this)
+                .add('mouseenter', function (e) {
+                    this.fire('mouseenter', {position: e.get('coordPosition')});
+                }, this)
+                .add('mousemove', function (e) {
+                    this.fire('mousemove', e.get('coordPosition'));
+                }, this)
+                .add('mouseleave', function (e) {
+                    this.fire('mouseleave', e.get('coordPosition'));
+                }, this)
+                .add('contextmenu', function (e) {
+                    this.fire('contextmenu', e.get('coordPosition'));
+                }, this)
+                .add('typechange', function (e) {
+                    this.fire('typechange', e.get('newType'));
+                }, this);
         },
 
-        _onBoundsChange: function (e) {
-            this._model.set('center', e.get('newCenter'), true);
-            this._model.set('zoom', e.get('newZoom'), true);
-            this.fire('bounds_changed');
-            this.fire('center_changed');
-            this.fire('zoom_changed');
+        _unsetListeners: function () {
+            this._dragListeners.removeAll();
+            this._listeners.removeAll();
         },
 
-        _onClick: function (e) {
-            this.fire('click', e.get('coordPosition'));
+        getContainer: function () {
+            return this._container;
         },
 
-        _onDblClick: function (e) {
-            this.fire('dblclick', e.get('coordPosition'));
+        setCenter: function (center) {
+            this._map.setCenter(center);
         },
 
-        _onMouseOver: function (e) {
-            this.fire('mouseover', e.get('coordPosition'));
+        getCenter: function () {
+            return this._map.getCenter();
         },
 
-        _onMouseMove: function (e) {
-            this.fire('mousemove', e.get('coordPosition'));
+        setZoom: function (zoom) {
+            this._map.setZoom(zoom);
         },
 
-        _onMouseOut: function (e) {
-            this.fire('mouseout', e.get('coordPosition'));
+        getZoom: function () {
+            return this._map.getZoom();
         },
 
-        _onRightClick: function (e) {
-            this.fire('rightclick', e.get('coordPosition'));
+        setType: function (type) {
+            this._map.setType(typeConverter.toYMaps(type));
         },
 
-        _onTypeChange: function (e) {
-            this._model.set('type', e.get('newType'));
+        getType: function () {
+            return typeConverter.fromYMaps(this._map.getType());
         },
 
-        original: function () {
-            return this._maps;
+        getOriginal: function () {
+            return this._map;
         }
 
     });
 
-    return View;
-
+    return YandexMap;
 });
