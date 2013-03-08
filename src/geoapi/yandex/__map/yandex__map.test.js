@@ -2,8 +2,17 @@ describe('yandex__map', function () {
     var map;
     var container;
 
+    beforeEach(function () {
+        spyOn(sandbox.geoapi.yandex, 'load').andCallFake(function () {
+            return $.ajax({
+                url:  'cache/yandex/api.js',
+                dataType: 'script'
+            });
+        });
+    });
+
     it('load yandex api', function () {
-        $.getScript('cache/yandex/api.js');
+        sandbox.geoapi.yandex.load();
         waits(300);
         runs(function () {
             expect(ymaps.Map).toBeDefined();

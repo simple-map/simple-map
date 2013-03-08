@@ -1,25 +1,30 @@
 plugin('geoapi.yandex.load', function (sandbox) {
-    var API_URL = 'http://api-maps.yandex.ru/2.0-stable/?load=package.standard,DomEvent&lang=ru-RU';
+    var config = sandbox.geoapi.yandex.config;
+    var API_URL = config.template
+        .replace('{url}', config.url)
+        .replace('{version}', config.version)
+        .replace('{modules}', config.modules.join(','))
+        .replace('{language}', config.language);
 
-    return function (callback) {
-        var asyncCount = 2;
-
-        function onCallback() {
-            asyncCount--;
-            if (!asyncCount) {
-                callback();
-            }
-        }
+    return function () {
+        var d = $.Deferred();
 
         if (!window.ymaps) {
-            $.getScript(API_URL, function () {
-                ymaps.ready(onCallback);
-            });
+            $.ajax({
+                url: API_URL,
+                dataType: 'script'
+            })
+                .done(function () {
+                    ymaps.ready(function () {
+                        d.resolve();
+                    });
+                });
         } else {
-            setTimeout(onCallback, 0);
+            ymaps.ready(function () {
+                d.resolve();
+            });
         }
 
-        // TODO: show loader until api will be loaded
-        $(onCallback);
+        return d.promise();
     };
 });

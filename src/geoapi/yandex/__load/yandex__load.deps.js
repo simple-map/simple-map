@@ -1,5 +1,6 @@
 ({
     mustDeps: [
-        {block: 'plugin'}
+        {block: 'plugin'},
+        {block: 'yandex', elem: 'config'}
     ]
 });

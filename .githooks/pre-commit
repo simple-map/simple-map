@@ -28,7 +28,7 @@ GIT_CACHED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
 make jshint JSHINT_DIRS="$(echo "$GIT_CACHED_FILES" | grep '\.js$' | xargs echo)" || exit 1
 
 # Run tests for changed js files
-TEST_BLOCKS=$(echo "$GIT_CACHED_FILES" | awk '{ system("dirname " $1) }' | grep '^blocks-desktop/' | xargs echo)
+TEST_BLOCKS=$(echo "$GIT_CACHED_FILES" | awk '{ system("dirname " $1) }' | grep '^src/' | xargs echo)
 if [ "$TEST_BLOCKS" ]; then
     make test TEST_BLOCKS="$TEST_BLOCKS" || exit 1
 fi
