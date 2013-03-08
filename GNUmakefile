@@ -10,7 +10,7 @@ PHANTOMJS := $(NPM_BIN)phantomjs --disk-cache=false
 
 CACHE_FOLDER = tests/unit/cache
 
-JASMINE_VERSION = 1.3.0
+JASMINE_VERSION = 1.3.1
 JASMINE_ARCHIEVE = jasmine-standalone-$(JASMINE_VERSION).zip
 JASMINE_ARCHIVE_URL = https://github.com/downloads/pivotal/jasmine/$(JASMINE_ARCHIEVE)
 JASMINE_DIR = $(CACHE_FOLDER)/jasmine
