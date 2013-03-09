@@ -2,16 +2,12 @@ plugin('map.Loader', function (sandbox) {
 
     function Loader(model) {
         this._element = this._createElement();
-        this._model = model;
 
-        var domReadyPromise = $.Deferred();
-        $(domReadyPromise.resolve);
-        $.when(domReadyPromise, this._createContainerPromise()).done($.proxy(function () {
-            var container = $(model.get('container'));
-            container
-                .css('position', 'relative')
-                .append(this._element);
-        }, this));
+        $.when(
+            this._createDomReadyPromise(),
+            this._createContainerPromise()
+        )
+            .done($.proxy(this._onDone, this));
     }
 
     $.extend(Loader.prototype, {
@@ -31,6 +27,12 @@ plugin('map.Loader', function (sandbox) {
                 });
         },
 
+        _createDomReadyPromise: function () {
+            var domReadyPromise = $.Deferred();
+            $(domReadyPromise.resolve);
+            return domReadyPromise;
+        },
+
         _createContainerPromise: function () {
             var containerPromise = $.Deferred();
             var model = this._model;
@@ -45,6 +47,13 @@ plugin('map.Loader', function (sandbox) {
             checkContainer();
 
             return containerPromise;
+        },
+
+        _onDone: function () {
+            var container = $(this._model.get('container'));
+            container
+                .css('position', 'relative')
+                .append(this._element);
         },
 
         loading: function () {
