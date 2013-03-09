@@ -18,11 +18,12 @@ exports.getTechs = function () {
 exports.getConfig = function () {
 
     return BEM.util.extend(this.__base() || {}, {
-        bundleBuildLevels: this.resolvePaths([
-            '../../src/core',
-            '../../src/geoapi',
-            '../unit/geoapi'
-        ])
+
+        bundleBuildLevels: [].concat(
+            this.__base().bundleBuildLevels,
+            this.resolvePaths(['../unit/geoapi'])
+        )
+
     });
 
 };
