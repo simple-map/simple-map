@@ -1,4 +1,4 @@
-/*global __dirname*/
+/*jshint node:true*/
 var PATH = require('path');
 
 exports.getTechs = function () {

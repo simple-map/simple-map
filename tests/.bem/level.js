@@ -1,4 +1,4 @@
-/*global __dirname*/
+/*jshint node:true*/
 var BEM = require('bem');
 var extend = require('bem/lib/util').extend;
 var PATH = require('path');

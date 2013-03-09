@@ -1,4 +1,5 @@
-/*global processDir, require*/
+/*global processDir*/
+/*jshint node:true*/
 var BEM = require('bem');
 var Q = BEM.require('q');
 var fs = require('fs');
