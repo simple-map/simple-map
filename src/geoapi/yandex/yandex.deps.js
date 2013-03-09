@@ -1,5 +1,5 @@
 ({
     shouldDeps: [
-        {elem: 'map'}
+        {elems: ['load', 'map']}
     ]
 });
