@@ -13,10 +13,9 @@ describe('yandex__map', function () {
 
     it('load yandex api', function () {
         sandbox.geoapi.yandex.load();
-        waits(300);
-        runs(function () {
-            expect(ymaps.Map).toBeDefined();
-        });
+        waitsFor(function () {
+            return window.ymaps && window.ymaps.Map;
+        }, 'API loading never completed', 1000);
     });
 
     function fireMouseEvent(map, type, ymapsType) {
