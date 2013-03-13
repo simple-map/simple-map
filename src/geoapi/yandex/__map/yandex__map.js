@@ -1,6 +1,6 @@
 plugin('geoapi.yandex.Map', function (sandbox) {
 
-    var typeConverter = sandbox.geoapi.yandex.util.typeConverter;
+    var typeConverter = sandbox.geoapi.yandex.util.converter.mapType;
 
     function YandexMap(container, options) {
         this._container = container;
@@ -10,6 +10,8 @@ plugin('geoapi.yandex.Map', function (sandbox) {
             type: typeConverter.toYMaps(options.type)
         });
         this._setListeners();
+
+        this.controls = new sandbox.geoapi.yandex.Controls(this);
     }
 
     $.extend(YandexMap.prototype, sandbox.behaviour.Observable, {
@@ -17,7 +19,8 @@ plugin('geoapi.yandex.Map', function (sandbox) {
         destruct: function () {
             this._unsetListeners();
             this._map.destroy();
-            this._container = this._map = null;
+            this.controls.destroy();
+            this._container = this.controls = this._map = null;
         },
 
         _setListeners: function () {

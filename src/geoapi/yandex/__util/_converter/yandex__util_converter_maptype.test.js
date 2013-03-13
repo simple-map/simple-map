@@ -1,5 +1,5 @@
 describe('yandex__util', function () {
-    var converter = sandbox.geoapi.yandex.util.typeConverter;
+    var converter = sandbox.geoapi.yandex.util.converter.mapType;
 
     describe('when type converter is used', function () {
 

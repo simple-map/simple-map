@@ -2,6 +2,7 @@ plugin('map.Loader', function (sandbox) {
 
     function Loader(model) {
         this._element = this._createElement();
+        this._model = model;
 
         $.when(
             this._createDomReadyPromise(),
