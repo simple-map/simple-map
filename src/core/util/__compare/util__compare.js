@@ -1,86 +1,81 @@
-plugin('util.compare', function () {
+var toString = Object.prototype.toString;
+var compare;
 
-    var toString = Object.prototype.toString;
+function isObject(obj) {
+    return toString.apply(obj) === '[object Object]';
+}
 
-    function isObject(obj) {
-        return toString.apply(obj) === '[object Object]';
-    }
-
-    function compareObjects(a, b) {
-        // Compare if they are references to each other
-        if (a === b) {
-            return true;
-        }
-
-        if (Object.keys(a).length !== Object.keys(b).length) {
-            return false;
-        }
-
-        for (var i in a) {
-            if (
-                a.hasOwnProperty(i) && (
-                    typeof b[i] === 'undefined' ||
-                    toString.apply(a[i]) !== toString.apply(b[i])
-                ) ||
-                !compare(a[i], b[i])
-            ) {
-                return false;
-            }
-        }
+function compareObjects(a, b) {
+    // Compare if they are references to each other
+    if (a === b) {
         return true;
     }
 
-    function isArray(arr) {
-        return toString.apply(arr) === '[object Array]';
+    if (Object.keys(a).length !== Object.keys(b).length) {
+        return false;
     }
 
-    function compareArrays(a, b) {
-        // References to each other?
-        if (a === b) {
-            return true;
-        }
-
-        // Arrays with different length are not equal
-        if (a.length !== b.length) {
+    for (var i in a) {
+        if (
+            a.hasOwnProperty(i) && (
+                typeof b[i] === 'undefined' ||
+                toString.apply(a[i]) !== toString.apply(b[i])
+            ) ||
+            !compare(a[i], b[i])
+        ) {
             return false;
         }
+    }
+    return true;
+}
 
-        for (var i = 0, l = a.length; i < l; i++) {
-            if (toString.apply(a[i]) !== toString.apply(b[i])) {
-                return false;
-            }
+function isArray(arr) {
+    return toString.apply(arr) === '[object Array]';
+}
 
-            if (!compare(a[i], b[i])) {
-                return false;
-            }
-        }
-
+function compareArrays(a, b) {
+    // References to each other?
+    if (a === b) {
         return true;
     }
 
-    function isFloat(n) {
-        return typeof n === 'number' && n % 1 !== 0;
+    // Arrays with different length are not equal
+    if (a.length !== b.length) {
+        return false;
     }
 
-    function compareFloats(a, b) {
-        return a.toFixed(6) ===  b.toFixed(6);
-    }
-
-    function compare(a, b) {
-        switch (Boolean(true)) {
-        case toString.apply(a) !== toString.apply(b):
+    for (var i = 0, l = a.length; i < l; i++) {
+        if (toString.apply(a[i]) !== toString.apply(b[i])) {
             return false;
-        case isObject(a):
-            return compareObjects(a, b);
-        case isArray(a):
-            return compareArrays(a, b);
-        case isFloat(a):
-            return compareFloats(a, b);
-        default:
-            return a === b;
+        }
+
+        if (!compare(a[i], b[i])) {
+            return false;
         }
     }
 
-    return compare;
+    return true;
+}
 
-});
+function isFloat(n) {
+    return typeof n === 'number' && n % 1 !== 0;
+}
+
+function compareFloats(a, b) {
+    return a.toFixed(6) ===  b.toFixed(6);
+}
+
+compare = exports.compare = function (a, b) {
+    switch (Boolean(true)) {
+    case toString.apply(a) !== toString.apply(b):
+        return false;
+    case isObject(a):
+        return compareObjects(a, b);
+    case isArray(a):
+        return compareArrays(a, b);
+    case isFloat(a):
+        return compareFloats(a, b);
+    default:
+        return a === b;
+    }
+};

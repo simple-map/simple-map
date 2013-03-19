@@ -9,7 +9,7 @@ exports.getTechs = function () {
 
     return extend(this.__base() || {}, {
         'bemdecl.js': '',
-        'js': PATH.join(PATH.resolve(__dirname, 'techs'), 'js-i.js'),
+        'js': PATH.join(PATH.resolve(__dirname, 'techs'), 'commonjs-without-closure.js'),
         'test.js': PATH.join(PATH.resolve(__dirname, 'techs'), 'test.js')
     });
 

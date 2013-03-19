@@ -1,1 +1,0 @@
-exports.baseTechName = 'js-i';

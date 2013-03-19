@@ -1,21 +1,15 @@
 describe('yandex__map', function () {
     var map;
     var container;
-
-    beforeEach(function () {
-        spyOn(sandbox.geoapi.yandex, 'load').andCallFake(function () {
-            return $.ajax({
-                url:  'cache/yandex/api.js',
-                dataType: 'script'
-            });
-        });
-    });
+    var api = require('yandex__load');
+    var YandexMap = require('yandex__map').YandexMap;
+    var compare = require('util__compare').compare;
 
     it('load yandex api', function () {
-        sandbox.geoapi.yandex.load();
+        api.load();
         waitsFor(function () {
             return window.ymaps && window.ymaps.Map;
-        }, 'API loading never completed', 1000);
+        }, 'API loading never completed', 2000);
     });
 
     function fireMouseEvent(map, type, ymapsType) {
@@ -51,7 +45,7 @@ describe('yandex__map', function () {
         beforeEach(function () {
             container = $('<div/>').css({width: 300, height: 300}).appendTo('body');
 
-            map = new sandbox.geoapi.yandex.Map(container[0], {
+            map = new YandexMap(container[0], {
                 center: [55.734046, 37.588628],
                 zoom: 10,
                 type: 'satellite'
@@ -64,7 +58,7 @@ describe('yandex__map', function () {
         });
 
         it('should return right initial params', function () {
-            expect(sandbox.util.compare(map.getCenter(), [55.734046, 37.588628])).toBeTruthy();
+            expect(compare(map.getCenter(), [55.734046, 37.588628])).toBeTruthy();
             expect(map.getZoom()).toEqual(10);
             expect(map.getType()).toEqual('satellite');
         });
@@ -76,7 +70,7 @@ describe('yandex__map', function () {
         it('handle setting and getting center', function () {
             var center = [10.78, 5.45];
             map.setCenter(center);
-            expect(sandbox.util.compare(map.getCenter(), center)).toBeTruthy();
+            expect(compare(map.getCenter(), center)).toBeTruthy();
         });
 
         it('handle setting and getting zoom', function () {

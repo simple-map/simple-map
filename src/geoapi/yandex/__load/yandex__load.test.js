@@ -1,5 +1,6 @@
 describe('yandex__load', function () {
     var ajaxSpy;
+    var apiLoad = require('yandex__load').load;
 
     beforeEach(function () {
         ajaxSpy = spyOn($, 'ajax').andCallFake(function () {
@@ -20,14 +21,14 @@ describe('yandex__load', function () {
 
     it('should load api', function () {
         var callback = jasmine.createSpy();
-        sandbox.geoapi.yandex.load().done(callback);
+        apiLoad().done(callback);
         expect(callback.callCount).toEqual(1);
     });
 
     it('should load api only once', function () {
         var callback = jasmine.createSpy();
-        sandbox.geoapi.yandex.load().done(callback);
-        sandbox.geoapi.yandex.load().done(callback);
+        apiLoad().done(callback);
+        apiLoad().done(callback);
         expect(ajaxSpy.callCount).toEqual(1);
         expect(callback.callCount).toEqual(2);
     });

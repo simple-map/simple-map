@@ -1,9 +1,3 @@
 var sm = window.sm = function (options) {
-    return sandbox.Map(options);
+    return require('map').Map(options);
 };
-
-$.extend(sm, {
-    plugin: function (name, callback) {
-        return plugin(name, callback, sm);
-    }
-});

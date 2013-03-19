@@ -5,7 +5,7 @@ exports.getTechs = function () {
 
     return {
         'bemjson.js': '',
-        'js': PATH.join(PATH.resolve(__dirname, '../techs'), 'js-i.js')
+        'js': PATH.join(PATH.resolve(__dirname, '../techs'), 'commonjs.js')
     };
 
 };

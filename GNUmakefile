@@ -38,7 +38,7 @@ cache.folder:
 	@mkdir -p $(CACHE_FOLDER)
 
 cache.yandex-api:
-	@if [ ! -f "$(YANDEX_API_FOLDER)/api2.js" ]; then \
+	@if [ ! -f "$(YANDEX_API_FOLDER)/api.js" ]; then \
 		@mkdir -p $(YANDEX_API_FOLDER); \
 		wget \
 			-O $(YANDEX_API_FOLDER)/api.js \

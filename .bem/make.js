@@ -22,20 +22,6 @@ MAKE.decl('BundleNode', {
         }
 
         return techs;
-    },
-
-    'create-test.js-node': function (tech, bundleNode, magicNode) {
-
-        return this.setBemBuildNode(
-            tech,
-            this.level.resolveTech(tech),
-            this.getBundlePath('bemdecl.js'),
-            bundleNode,
-            magicNode);
-    },
-
-    'create-test.js-optimizer-node': function (tech, sourceNode, bundleNode) {
-        return this['create-js-optimizer-node'].apply(this, arguments);
     }
 
 });
